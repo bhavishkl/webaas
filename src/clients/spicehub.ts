@@ -1,0 +1,115 @@
+import type { ClientConfig } from "@/core/types";
+
+export const spiceHubConfig: ClientConfig = {
+  slug: "spicehub",
+  templateSlug: "restaurant",
+  businessName: "Spice Hub",
+  tagline: "Authentic Indian Flavors",
+  colors: {
+    primary: "#d97706",
+    secondary: "#92400e",
+    accent: "#f59e0b",
+    background: "#0c0a08",
+    surface: "#1a1612",
+    text: "#faf8f5",
+    textMuted: "#a89f94",
+    border: "#2a241e",
+  },
+  hero: {
+    title: "Authentic Indian Flavors",
+    subtitle: "Spice Hub — A Culinary Journey Through India",
+    description: "From the fiery curries of Rajasthan to the delicate dosas of Kerala, experience the full spectrum of Indian cuisine crafted with love and tradition.",
+    ctaText: "Reserve a Table",
+    ctaLink: "#contact",
+    secondaryCtaText: "View Menu",
+    secondaryCtaLink: "#services",
+    backgroundImage: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80",
+  },
+  about: {
+    title: "Our Story",
+    subtitle: "A Legacy of Flavor",
+    description: "Spice Hub was born from a family recipe book passed down through four generations. Our head chef, trained in the kitchens of Mumbai and Delhi, brings an authentic taste of India to every plate. We source our spices directly from Indian farms and prepare everything fresh, daily.",
+    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80",
+    stats: [
+      { label: "Years of Tradition", value: "25+" },
+      { label: "Spice Varieties", value: "40+" },
+      { label: "Daily Guests", value: "200+" },
+      { label: "5-Star Reviews", value: "1,500+" },
+    ],
+  },
+  services: {
+    title: "Our Menu Highlights",
+    subtitle: "Signature dishes crafted with passion",
+    services: [
+      { title: "Butter Chicken", description: "Tender chicken simmered in a rich, creamy tomato-based sauce with aromatic spices.", icon: "🍛", price: "$16.99" },
+      { title: "Lamb Biryani", description: "Fragrant basmati rice layered with succulent lamb, saffron, and caramelized onions.", icon: "🍚", price: "$19.99" },
+      { title: "Paneer Tikka", description: "Marinated cottage cheese grilled to perfection in a traditional tandoor oven.", icon: "🧀", price: "$13.99" },
+      { title: "Masala Dosa", description: "Crispy rice crepe filled with spiced potato filling, served with sambar and chutney.", icon: "🥞", price: "$11.99" },
+      { title: "Tandoori Platter", description: "Assorted tandoori meats and vegetables — chicken, lamb, prawns, and paneer.", icon: "🍢", price: "$24.99" },
+      { title: "Gulab Jamun", description: "Soft milk-solid dumplings soaked in rose-flavored sugar syrup — a classic Indian dessert.", icon: "🍮", price: "$7.99" },
+    ],
+  },
+  gallery: {
+    title: "The Spice Hub Experience",
+    subtitle: "A feast for all senses",
+    images: [
+      { src: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80", alt: "Restaurant interior", caption: "Warm Ambiance" },
+      { src: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80", alt: "Bar area", caption: "Craft Cocktail Bar" },
+      { src: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80", alt: "Plated dish", caption: "Chef's Special" },
+      { src: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80", alt: "Indian cuisine spread", caption: "Weekend Thali" },
+      { src: "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&q=80", alt: "Desserts", caption: "Sweet Endings" },
+      { src: "https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80", alt: "Private dining", caption: "Private Events" },
+    ],
+  },
+  testimonials: {
+    title: "Guest Reviews",
+    subtitle: "What our guests are saying",
+    testimonials: [
+      { name: "Priya Sharma", role: "Food Blogger", content: "The most authentic Indian food I've had outside of India. The butter chicken alone is worth the trip. Absolutely incredible!", rating: 5 },
+      { name: "Michael Brown", role: "Regular Guest", content: "We've been coming to Spice Hub every Friday for 3 years. The consistency is remarkable — every dish is perfect every time.", rating: 5 },
+      { name: "Sofia Reyes", role: "Event Host", content: "We hosted our company dinner here and the private dining experience was flawless. The staff went above and beyond.", rating: 5 },
+    ],
+  },
+  faq: {
+    title: "Frequently Asked Questions",
+    subtitle: "Planning your visit",
+    faqs: [
+      { question: "Do you take reservations?", answer: "Yes! We recommend reservations for dinner, especially on weekends. You can book online or call us directly." },
+      { question: "Do you offer vegetarian and vegan options?", answer: "Absolutely. Over 40% of our menu is vegetarian, and we have a dedicated vegan section with plant-based alternatives." },
+      { question: "Can you accommodate large parties?", answer: "Yes, our private dining room seats up to 30 guests. Contact us for special event packages." },
+      { question: "Do you offer catering?", answer: "Yes! We provide catering for events of all sizes. Contact us for a custom quote." },
+    ],
+  },
+  contact: {
+    title: "Visit Spice Hub",
+    subtitle: "We'd love to welcome you",
+    address: "42 Curry Lane, Foodie District, NY 10004",
+    phone: "+1 (555) 789-0123",
+    email: "dine@spicehub.com",
+    hours: "Lunch: 11AM-3PM | Dinner: 5PM-11PM | Closed Mondays",
+    socials: [
+      { platform: "Instagram", url: "https://instagram.com/spicehub" },
+      { platform: "Yelp", url: "https://yelp.com/spicehub" },
+    ],
+  },
+  cta: {
+    title: "Hungry? Reserve Your Table",
+    description: "Experience the magic of authentic Indian cuisine. Walk-ins welcome, reservations preferred.",
+    buttonText: "Make Reservation",
+    buttonLink: "#contact",
+    secondaryButtonText: "Order Takeout",
+    secondaryButtonLink: "#contact",
+  },
+  footer: {
+    links: [
+      { label: "About", href: "#about" },
+      { label: "Menu", href: "#services" },
+      { label: "Gallery", href: "#gallery" },
+      { label: "Contact", href: "#contact" },
+    ],
+    socials: [
+      { platform: "Instagram", url: "https://instagram.com/spicehub" },
+      { platform: "Yelp", url: "https://yelp.com/spicehub" },
+    ],
+  },
+};
