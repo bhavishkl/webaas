@@ -2,7 +2,8 @@ import type { ClientConfig } from "@/core/types";
 
 export const fitzoneConfig: ClientConfig = {
   slug: "fitzone",
-  templateSlug: "gym",
+  sectionOrder: ["hero", "about", "services", "testimonials", "gallery", "cta", "contact", "faq", "footer"],
+  sectionLabels: { services: "Programs" },
   businessName: "FitZone",
   tagline: "Fitness for Everyone",
   colors: {

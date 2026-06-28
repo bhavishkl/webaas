@@ -2,7 +2,8 @@ import type { ClientConfig } from "@/core/types";
 
 export const powerGymConfig: ClientConfig = {
   slug: "powergym",
-  templateSlug: "gym",
+  sectionOrder: ["hero", "about", "services", "testimonials", "gallery", "cta", "contact", "faq", "footer"],
+  sectionLabels: { services: "Programs" },
   businessName: "Power Gym",
   tagline: "Unleash Your Potential",
   colors: {

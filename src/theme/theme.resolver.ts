@@ -2,7 +2,7 @@
 // Theme Resolver — merges industry defaults with client overrides
 // =============================================================================
 
-import type { IndustryConfig, ClientConfig } from "@/core/types";
+import type { ClientConfig } from "@/core/types";
 import type { ResolvedTheme, ThemeConfig } from "./theme.types";
 
 /**
@@ -10,11 +10,9 @@ import type { ResolvedTheme, ThemeConfig } from "./theme.types";
  * Client colors always win when provided.
  */
 export function resolveTheme(
-  industry: IndustryConfig,
   client: ClientConfig
 ): ResolvedTheme {
   const mergedColors = {
-    ...industry.defaultColors,
     ...client.colors,
   };
 

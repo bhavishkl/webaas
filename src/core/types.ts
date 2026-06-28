@@ -1,6 +1,8 @@
 // =============================================================================
 // Core Types — Shared interfaces used across 3+ features
 // =============================================================================
+import type { ComponentType } from "react";
+
 
 // ---------------------------------------------------------------------------
 // Theme & Colors
@@ -209,7 +211,6 @@ export type SectionLabels = Partial<Record<SectionName, string>>;
 
 export interface ClientConfig {
   slug: string;
-  templateSlug: string;
   businessName: string;
   tagline?: string;
   logo?: Logo;
@@ -224,18 +225,9 @@ export interface ClientConfig {
   cta: CTAContent;
   footer: FooterContent;
   customSections?: Record<string, unknown>;
-}
-
-// ---------------------------------------------------------------------------
-// Industry Config — Defaults and structure for an entire industry vertical
-// ---------------------------------------------------------------------------
-
-export interface IndustryConfig {
-  slug: string;
-  name: string;
-  description: string;
-  defaultColors: ThemeColors;
   sectionOrder: SectionName[];
   sectionLabels?: SectionLabels;
-  defaultContent: Partial<ClientConfig>;
+  CustomTemplate?: ComponentType<{ client: ClientConfig; colors: ThemeColors }>;
 }
+
+// ---------------------------------------------------------------------------

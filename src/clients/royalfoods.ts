@@ -2,7 +2,8 @@ import type { ClientConfig } from "@/core/types";
 
 export const royalFoodsConfig: ClientConfig = {
   slug: "royalfoods",
-  templateSlug: "restaurant",
+  sectionOrder: ["hero", "about", "services", "gallery", "testimonials", "cta", "contact", "faq", "footer"],
+  sectionLabels: { services: "Our Menu" },
   businessName: "Royal Foods",
   tagline: "Fine Dining Redefined",
   colors: {

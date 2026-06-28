@@ -2,7 +2,8 @@ import type { ClientConfig } from "@/core/types";
 
 export const abcGymConfig: ClientConfig = {
   slug: "abcgym",
-  templateSlug: "gym",
+  sectionOrder: ["hero", "about", "services", "testimonials", "gallery", "cta", "contact", "faq", "footer"],
+  sectionLabels: { services: "Programs" },
   businessName: "ABC Gym",
   tagline: "Push Beyond Your Limits",
   logo: {

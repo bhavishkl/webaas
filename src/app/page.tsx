@@ -1,22 +1,35 @@
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { getClient, getAllClients } from "@/clients/registry";
-import { getTemplate } from "@/industries/registry";
+import { Navbar } from "@/components/common/navbar";
+import { renderSection } from "@/sections/registry";
 import { resolveTheme } from "@/theme";
 import { BaseTemplate } from "@/templates/base-template";
 import { DEV_MODE } from "@/config/env";
 import { Metadata } from "next";
+import Link from "next/link";
 
-export async function generateMetadata(): Promise<Metadata> {
+interface PageProps {
+  searchParams: Promise<{ client?: string }>;
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const headersList = await headers();
   const tenantSlug = headersList.get("x-tenant-slug");
-  
-  if (tenantSlug) {
-    const clientConfig = getClient(tenantSlug);
+  const params = await searchParams;
+
+  const slug = tenantSlug || (DEV_MODE ? params.client : undefined);
+
+  if (slug) {
+    const clientConfig = await getClient(slug);
     if (clientConfig) {
+      // Allow the component to export its own metadata
+      if ((clientConfig as any).metadata) {
+        return (clientConfig as any).metadata;
+      }
       return {
         title: `${clientConfig.businessName} — ${clientConfig.tagline || ""}`,
-        description: clientConfig.hero.description,
+        description: clientConfig.hero.description || `Welcome to ${clientConfig.businessName}`,
       };
     }
   }
@@ -27,35 +40,54 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function RootPage() {
+export default async function RootPage({ searchParams }: PageProps) {
   const headersList = await headers();
   const tenantSlug = headersList.get("x-tenant-slug");
+  const params = await searchParams;
 
-  // 1. TENANT MODE (Hostname Resolved)
-  if (tenantSlug) {
-    const clientConfig = getClient(tenantSlug);
+  // 1. TENANT MODE (Hostname Resolved) or QUERY PARAM MODE (Dev Preview)
+  const activeSlug = tenantSlug || (DEV_MODE ? params.client : undefined);
+
+  if (activeSlug) {
+    const clientConfig = await getClient(activeSlug);
     if (!clientConfig) {
       notFound();
     }
 
-    const templateEntry = getTemplate(clientConfig.templateSlug);
-    if (!templateEntry) {
-      notFound();
-    }
-
-    const theme = resolveTheme(templateEntry.config, clientConfig);
-    const { Template } = templateEntry;
+    const theme = resolveTheme(clientConfig);
+    const CustomTemplate = clientConfig.CustomTemplate;
 
     return (
       <BaseTemplate client={clientConfig} theme={theme}>
-        <Template client={clientConfig} colors={theme.config.colors} />
+        {CustomTemplate ? (
+          <CustomTemplate client={clientConfig} colors={theme.config.colors} />
+        ) : (
+          <>
+            <Navbar
+              businessName={clientConfig.businessName}
+              logoUrl={clientConfig.logo?.url}
+              logoAlt={clientConfig.logo?.alt}
+              sectionOrder={clientConfig.sectionOrder}
+              sectionLabels={clientConfig.sectionLabels || {}}
+            />
+            <main className="pt-0">
+              {clientConfig.sectionOrder.map((section) =>
+                renderSection(section, { 
+                  client: clientConfig, 
+                  colors: theme.config.colors, 
+                  sectionLabels: clientConfig.sectionLabels || {} 
+                })
+              )}
+            </main>
+          </>
+        )}
       </BaseTemplate>
     );
   }
 
   // 2. DEV DASHBOARD MODE
   if (DEV_MODE) {
-    const clients = getAllClients();
+    const clients = await getAllClients();
 
     return (
       <div className="min-h-screen bg-[#09090b] text-white">
@@ -74,7 +106,7 @@ export default async function RootPage() {
               WebAAS Clients
             </h1>
             <p className="mt-6 text-lg text-gray-400 max-w-2xl mx-auto">
-              Simulate tenant resolution locally by adding host mappings in src/config/tenant.ts.
+              Click any client card below to preview their website.
               <br />
               (This dashboard is disabled in production).
             </p>
@@ -86,9 +118,10 @@ export default async function RootPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {clients.map((client) => {
               return (
-                <div
+                <Link
                   key={client.slug}
-                  className="group relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.15] hover:bg-white/[0.04] transition-all duration-300"
+                  href={`/?client=${client.slug}`}
+                  className="group relative p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.15] hover:bg-white/[0.04] transition-all duration-300 block"
                 >
                   {/* Color indicator */}
                   <div className="flex items-center gap-2 mb-4">
@@ -110,7 +143,7 @@ export default async function RootPage() {
                     {client.businessName}
                   </h3>
                   <p className="mt-1 text-sm text-gray-500">
-                    Template: {client.templateSlug}
+                    Template: {client.CustomTemplate ? "Custom" : "Standard"}
                   </p>
                   {client.tagline && (
                     <p className="mt-1 text-sm text-gray-500">
@@ -118,10 +151,10 @@ export default async function RootPage() {
                     </p>
                   )}
                   
-                  <div className="mt-4 text-xs text-indigo-400">
-                    Map a hostname to &quot;{client.slug}&quot; in tenant.ts to preview.
+                  <div className="mt-4 text-xs text-indigo-400 group-hover:text-indigo-300 transition-colors">
+                    Click to preview →
                   </div>
-                </div>
+                </Link>
               );
             })}
           </div>

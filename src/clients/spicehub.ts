@@ -2,7 +2,8 @@ import type { ClientConfig } from "@/core/types";
 
 export const spiceHubConfig: ClientConfig = {
   slug: "spicehub",
-  templateSlug: "restaurant",
+  sectionOrder: ["hero", "about", "services", "gallery", "testimonials", "cta", "contact", "faq", "footer"],
+  sectionLabels: { services: "Our Menu" },
   businessName: "Spice Hub",
   tagline: "Authentic Indian Flavors",
   colors: {
